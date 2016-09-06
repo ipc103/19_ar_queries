@@ -4,7 +4,7 @@ class Category < ActiveRecord::Base
 
   def self.highest_rated
     joins(movie_categories: {:movie => [:reviews]})
-    .group("categories.id")
+    .group('categories.id')
     .order("AVG(reviews.rating) DESC")
   end
 
@@ -12,4 +12,5 @@ class Category < ActiveRecord::Base
     movies.joins(:reviews)
     .average('reviews.rating').to_f
   end
+  
 end
