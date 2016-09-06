@@ -2,6 +2,7 @@ class Movie < ActiveRecord::Base
   has_many :reviews
   has_many :movie_categories
   has_many :categories, through: :movie_categories
+  accepts_nested_attributes_for :categories
 
   def self.highest_rated
     self.joins(:reviews).group('movies.id').order('AVG(reviews.rating) DESC')
