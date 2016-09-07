@@ -10,15 +10,15 @@ class Movie < ActiveRecord::Base
   end
 
   def self.eighties
-    self.where('release_year LIKE "198%"')
+    self.where(release_year: (1980..1990))
   end
 
   def self.lowest_rated
-
+    joins(:reviews).group('movies.id').order('AVG(reviews.rating)')
   end
 
   def self.most_reviewed
-    self.joins(:reviews)
+    self.joins(:reviews).group('movies.id').order("COUNT(reviews.id)").first
   end
 
   def self.horror
